@@ -1,9 +1,9 @@
-import Tkinter as tk
+import tkinter as tk
 import solver
 
 def _create_circle(self, x, y, r, **kwargs):
     """Create a circle
-        
+
     x the abscissa of centre
     y the ordinate of centre
     r the radius of circle
@@ -15,7 +15,7 @@ tk.Canvas.create_circle = _create_circle
 
 def _coords_circle(self, target, x, y, r, **kwargs):
     """Define a circle
-        
+
     target the circle object
     x the abscissa of centre
     y the ordinate of centre
@@ -28,30 +28,30 @@ tk.Canvas.coords_circle = _coords_circle
 
 class Display:
     """Define the window used to display a simulation"""
-    
+
     def __init__(self, balls, step, size):
         """Initialize and launch the display"""
         self.balls = balls
         self.step = step
         self.size = size
-        
+
         self.window = tk.Tk()
         self.canvas = tk.Canvas(self.window, width=self.size, height=self.size, bg="black")
         self.canvas.pack()
         self.canvas.focus_set()
         self.drawing = self.create()
         self.started = False
-    
+
         start_button = tk.Button(self.window, text="Start", command=self.start)
         stop_button = tk.Button(self.window, text="Pause", command=self.stop)
         start_button.pack()
         stop_button.pack()
-    
+
         self.window.mainloop()
-    
+
     def create(self):
         """Create a drawing item for each solver.Ball object
-            
+
         return a dictionary with solver.Ball objects as keys and their circle drawings as items
         """
         return {ball: self.canvas.create_circle(ball.position[0], ball.position[1], ball.radius, fill="white") for ball in self.balls}
